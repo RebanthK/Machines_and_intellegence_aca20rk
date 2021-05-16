@@ -28,11 +28,4 @@ public class Coords {
     return y;
   };
 
-  public boolean equals(Coords c2){
-    if (this.x == c2.getx() && this.y == c2.gety()){
-      return true;
-    }
-    else {return false;}
-  }
-
 }
