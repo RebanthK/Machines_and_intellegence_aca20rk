@@ -25,7 +25,7 @@ public class RamblersState extends SearchState{
     public boolean goalPredicate(Search searcher){
         RamblersSearch rsearcher = (RamblersSearch) searcher;
         Coords tar = rsearcher.getGoal();
-        if (tar == coords){
+        if (tar.equals(coords)){
             return true;
         }
         else{
