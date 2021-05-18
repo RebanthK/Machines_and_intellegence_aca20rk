@@ -92,19 +92,21 @@ public class Carta {
 
     public void mapFromFile(String filename) {
         TerrainMap tm = new TerrainMap(filename);
-        //System.out.println(tm.getTmap()[7][2]);
-        for (int i = 0; i < tm.getDepth(); ++i) {
-            for (int j = 0; j < tm.getWidth(); ++j) {
+        // System.out.println(tm.getTmap()[7][2]);
+        for (int i = 0; i < tm.getDepth(); i++) {
+            for (int j = 0; j < tm.getWidth(); j++) {
+                // System.out.println(i < tm.getDepth());
                 Coords co1 = new Coords(j, i);
+                // System.out.println(i + ", " + j + ", " +tm.getDepth() + ", " +tm.getWidth() );
                 int h1 = tm.getTmap()[i][j];
-                if ((i+1) < tm.getWidth()){
-                    //System.out.println("at least pass 1");
+                if ((i+1) < tm.getDepth()){
+                    
                     Coords co2 = new Coords(j, i+1);
                     int h2 = tm.getTmap()[i+1][j];
                     links.add(new CoordsLink(co1, co2, h1, h2));
                 }
 
-                if ((j+1) < tm.getDepth()){
+                if ((j+1) < tm.getWidth()){
                     Coords co2 = new Coords(j+1, i);
                     int h2 = tm.getTmap()[i][j+1];
                     links.add(new CoordsLink(co1, co2, h1, h2));
@@ -120,11 +122,10 @@ public class Carta {
                     Coords co2 = new Coords(j, i-1);
                     int h2 = tm.getTmap()[i-1][j];
                     links.add(new CoordsLink(co1, co2, h1, h2));
-                }
-                
-        
+                }        
             }
         }
+    //System.out.println(links.size());
     findCoordinates();
     }
 

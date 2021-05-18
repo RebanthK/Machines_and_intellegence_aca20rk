@@ -170,7 +170,7 @@ public class Carta {
     * returns est cost between 2 coordinates
     * @param co1 coords1
     * @param c2 coords2
-    */ 
+    
 
     public int estbetween(Coords co1,Coords co2){
         int height1 = tm.getTmap()[co1.getx()][co2.gety()];
@@ -181,24 +181,45 @@ public class Carta {
         int ans = diffX + diffY + heightDiff;
         return ans;
     }
+    */
+
+    /**
+    * estbetween Mixed heuristic (Manhattan + height difference)
+    * returns est cost between 2 coordinates
+    * @param co1 coords1
+    * @param c2 coords2
+    */ 
+
+    public int estbetween(Coords co1,Coords co2){
+        int height1 = tm.getTmap()[co1.getx()][co2.gety()];
+        int height2 = tm.getTmap()[co2.getx()][co2.gety()];
+        int heightDiff = Math.abs(height2 - height1);
+        int diffX = Math.abs(co1.getx() - co2.getx());
+        int diffY = Math.abs(co1.gety() - co2.gety());
+        int diff2D = (int)(Math.sqrt((double)(diffX^2 + diffY^2)));
+        int ans = diff2D + heightDiff;
+        return ans;
+    }
     
     
 
     public void mapFromFile(String filename) {
         tm = new TerrainMap(filename);
         // System.out.println(tm.getTmap()[7][2]);
-        for (int i = 0; i < tm.getDepth(); ++i) {
-            for (int j = 0; j < tm.getWidth(); ++j) {
+        for (int i = 0; i < tm.getDepth(); i++) {
+            for (int j = 0; j < tm.getWidth(); j++) {
+                // System.out.println(i < tm.getDepth());
                 Coords co1 = new Coords(j, i);
+                // System.out.println(i + ", " + j + ", " +tm.getDepth() + ", " +tm.getWidth() );
                 int h1 = tm.getTmap()[i][j];
-                if ((i+1) < tm.getWidth()){
-                    //System.out.println("at least pass 1");
+                if ((i+1) < tm.getDepth()){
+                    
                     Coords co2 = new Coords(j, i+1);
                     int h2 = tm.getTmap()[i+1][j];
                     links.add(new CoordsLink(co1, co2, h1, h2));
                 }
 
-                if ((j+1) < tm.getDepth()){
+                if ((j+1) < tm.getWidth()){
                     Coords co2 = new Coords(j+1, i);
                     int h2 = tm.getTmap()[i][j+1];
                     links.add(new CoordsLink(co1, co2, h1, h2));
@@ -214,9 +235,7 @@ public class Carta {
                     Coords co2 = new Coords(j, i-1);
                     int h2 = tm.getTmap()[i-1][j];
                     links.add(new CoordsLink(co1, co2, h1, h2));
-                }
-                
-        
+                }         
             }
         }
     //System.out.println(links.size());
