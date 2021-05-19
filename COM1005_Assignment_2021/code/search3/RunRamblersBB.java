@@ -46,8 +46,8 @@ public class RunRamblersBB {
 
 
         for (Map.Entry m: pairs.entrySet()){
-          RamblersSearch searcher = new RamblersSearch(map1, m.getValue());
-          SearchState initState = (SearchState) new RamblersState(m.getKey(), 0);
+          RamblersSearch searcher = new RamblersSearch(map1, (Coords)m.getValue());
+          SearchState initState = (SearchState) new RamblersState((Coords)m.getKey(), 0);
           String res_bb = searcher.runSearch(initState, "branchAndBound");
           System.out.println(res_bb);
         }
