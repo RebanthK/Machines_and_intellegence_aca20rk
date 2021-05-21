@@ -4,7 +4,7 @@
   *
   * 
   * Rebanth Kanner 2021 version
-  * run a Ramblers Branch and Bound Search
+  run a Ramblers Branch and Bound Search
 **/
 
 import java.util.*;
@@ -14,10 +14,7 @@ public class RunRamblersBB {
         Carta map1 = new Carta();
         map1.mapFromFile("diablo.pgm");
 
-        
-		//coordinate pairs to test
-		HashMap<Coords,Coords> pairs = new HashMap<Coords, Coords>();
-        pairs.put(new Coords(24, 154), new Coords(20, 156));
+        HashMap<Coords,Coords> pairs = new HashMap<Coords, Coords>();
         /*
 		pairs.put(new Coords(65, 88), new Coords(66, 99));
 		pairs.put(new Coords(12, 122), new Coords(45, 230));

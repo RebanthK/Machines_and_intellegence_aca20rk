@@ -43,12 +43,11 @@ public abstract class Search {
 	    System.out.println("-------------------------");
 	    System.out.println("iteration no " + numIteration);
 	    System.out.println("open is");
-      
 	    for (SearchNode nn: open) {
 	      String nodestr = nn.toString();
 		    System.out.println(nodestr);
 	    }
-      
+
       selectNode(strat); // change from search1 -selectNode selects next node given strategy,
       
       // makes it currentNode & removes it from open
@@ -74,6 +73,7 @@ public abstract class Search {
   */
 
   public  float runSearchE (SearchState initState, String strat) {
+
     initNode = new SearchNode(initState,0,0); // create initial node
     initNode.setGlobalCost(0); //change from search2
 
@@ -83,13 +83,9 @@ public abstract class Search {
 
   	int numIteration = 1;
 
-    System.out.println("Starting "+strat+" Search");
-
 	  while (!open.isEmpty()) {
 
 	    selectNode(strat); // change from search1 -selectNode selects next node given strategy,
-
-      // System.out.println("Current node: "+currentNode.toString());
 
 	    if (currentNode.goalPredicate(this)) return reportSuccessE();  //success
 	    //change from search1 - call reportSuccess
@@ -270,7 +266,6 @@ public abstract class Search {
     private float reportSuccessE(){
 
     	SearchNode n = currentNode;
-      System.out.println("Current Node: " + n.toString());
 	    int plen=1;
 
     	while (n.getParent() != null){

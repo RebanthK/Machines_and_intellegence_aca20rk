@@ -1,5 +1,6 @@
 /*
-*	State in a Rambler's search
+*	RamblersState.java
+*   State in a Rambler's search
 *	Rebanth Kanner 2021 version
 * 
 */
@@ -38,14 +39,13 @@ public class RamblersState extends SearchState{
         RamblersSearch rsearcher = (RamblersSearch) searcher;
         Carta map = rsearcher.getMap();
         ArrayList<CoordsLink> links = map.getLinks(coords);
-        // System.out.println(links.size());
         ArrayList<SearchState> succs = new ArrayList<SearchState>();
+
         for (CoordsLink l : links) {
             if (coords.equals(l.getCoords1())){
                 succs.add((SearchState) new RamblersState(l.getCoords2(), l.getCost(),  map.estbetween(l.getCoords2(), rsearcher.getGoal())));
             }
         }
-
         return succs;
     }
 
@@ -57,7 +57,6 @@ public class RamblersState extends SearchState{
         else{
             return false;
         }
-
     }
 
     public String toString(){

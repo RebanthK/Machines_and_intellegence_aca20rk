@@ -1,5 +1,5 @@
 /**
- * Coords.java
+ * Carta.java
  *
  * Rebanth Kanner 2021 version
  * 
@@ -15,7 +15,7 @@ public class Carta {
     private ArrayList<CoordsLink> links;
     private HashSet coordinates;
 
-      // accessors
+    // accessors
     public ArrayList<CoordsLink> getAllLinks() {
         return links;
     }
@@ -28,42 +28,26 @@ public class Carta {
         links = new ArrayList<CoordsLink>();
     }
 
-    /*
-   * addLink adds a link to a map
-   * 
-   * @param co1 coords1
-   * @param co2 coords2
-   * @param h1 height1
-   * @param h2 height2
-   */
-
-  public void addLink(Coords co1, Coords co2, int h1, int h2) {
-    CoordsLink cl = new CoordsLink(co1, co2, h1, h2);
-    links.add(cl);
-  }
-
-  public String toString() {
-    StringBuffer buf = new StringBuffer("MAP WITH LINKS\n");
-    for (CoordsLink lnk : links) {
-      String lstr = lnk.toString();
-      buf.append(lstr + "\n");
+    public String toString() {
+        StringBuffer buf = new StringBuffer("MAP WITH LINKS\n");
+        for (CoordsLink lnk : links) {
+            String lstr = lnk.toString();
+            buf.append(lstr + "\n");
+        }
+        return buf.toString();
     }
-    return buf.toString();
-  }
 
     /*
-   * getLinks returns all links to/from the given coordinates
-   * 
-   * @param coords - the coordinates
-   * @return ArrayList of links
-   */
-    
+    * getLinks returns all links to/from the given coordinates
+    * 
+    * @param coords - the coordinates
+    * @return ArrayList of links
+    */
+
     public ArrayList<CoordsLink> getLinks(Coords coords) {
         ArrayList<CoordsLink> clinks = new ArrayList<CoordsLink>();
         for (CoordsLink l : links) {
-            // System.out.println(coords == l.getCoords1());
             if (coords.equals(l.getCoords1())){
-                // System.out.println("at least pass 1");
                 clinks.add(l);
             }
         }
@@ -90,14 +74,17 @@ public class Carta {
         return ans;
     }
 
+    /*
+    * Constructor mapFromFile Constructs the State Space
+    * 
+    * @param filename
+    */
+
     public void mapFromFile(String filename) {
         TerrainMap tm = new TerrainMap(filename);
-        // System.out.println(tm.getTmap()[7][2]);
         for (int i = 0; i < tm.getDepth(); i++) {
             for (int j = 0; j < tm.getWidth(); j++) {
-                // System.out.println(i < tm.getDepth());
                 Coords co1 = new Coords(j, i);
-                // System.out.println(i + ", " + j + ", " +tm.getDepth() + ", " +tm.getWidth() );
                 int h1 = tm.getTmap()[i][j];
                 if ((i+1) < tm.getDepth()){
                     
@@ -125,10 +112,8 @@ public class Carta {
                 }        
             }
         }
-    //System.out.println(links.size());
     findCoordinates();
     }
-
 
     private void findCoordinates(){
         coordinates = new HashSet();

@@ -42,6 +42,25 @@ public class TerrainMap {
   private static final int MAXVAL = 255; // We'll use a constant maximum greyscale value
 
   /**
+   * Another constructor so as to be able to make a Tmap to write a file
+   * @param depth
+   * @param height
+   * @param width
+   * @param mno
+   * @param tmap
+   * 
+   * @return 
+   */
+
+  public TerrainMap(int depth, int height, int width, String mno, int[][] tmap){
+    tmap = tmap;
+    depth = depth;
+    height = height;
+    width = width;
+    mno = mno;
+  }
+
+  /**
    * constructor, given a PGM image Reads a PGM file. The maximum greyscale value
    * is rescaled to be between 0 and 255.
    * 

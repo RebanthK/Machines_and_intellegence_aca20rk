@@ -1,5 +1,5 @@
 /**
- * Coords.java
+ * Carta.java
  *
  * Rebanth Kanner 2021 version
  * 
@@ -13,18 +13,13 @@ import java.io.*;
 
 public class Carta {
     private ArrayList<CoordsLink> links;
-    // private ArrayList<CoordsLink> ests;
     private HashSet coordinates;
     private TerrainMap tm;
 
-      // accessors
+    // accessors
     public ArrayList<CoordsLink> getAllLinks() {
         return links;
     }
-
-    //public ArrayList<CoordsLink> getAllEsts(){
-    //    return ests;
-    //}
 
     public HashSet getCoordinates() {
         return coordinates;
@@ -32,8 +27,6 @@ public class Carta {
 
     public Carta() {
         links = new ArrayList<CoordsLink>();
-
-        // ests = new ArrayList<CoordsLink>();
     }
 
     public String toString() {
@@ -45,21 +38,6 @@ public class Carta {
         return buf.toString();
     }
 
-    /*
-   * addLink adds a link to a map
-   * 
-   * @param co1 coords1
-   * @param co2 coords2
-   * @param h1 height1
-   * @param h2 height2
-   */
-
-    public void addLink(Coords co1, Coords co2, int h1, int h2) {
-        CoordsLink cl = new CoordsLink(co1, co2, h1, h2);
-        links.add(cl);
-    }
-
-  
 
     /*
    * getLinks returns all links to/from the given coordinates
@@ -107,7 +85,6 @@ public class Carta {
     * @param co1 coords1
     * @param c2 coords2
     
-
     public int estbetween(Coords co1,Coords co2){
         int diffX = Math.abs(co1.getx() - co2.getx());
         int diffY = Math.abs(co1.gety() - co2.gety());
@@ -121,7 +98,6 @@ public class Carta {
     * returns est cost between 2 coordinates
     * @param co1 coords1
     * @param c2 coords2
-    
 
     public int estbetween(Coords co1,Coords co2){
         int diffX = Math.abs(co1.getx() - co2.getx());
@@ -136,7 +112,6 @@ public class Carta {
     * returns est cost between 2 coordinates
     * @param co1 coords1
     * @param c2 coords2
-    
 
     public int estbetween(Coords co1,Coords co2){
         int height1 = tm.getTmap()[co1.getx()][co2.gety()];
@@ -144,7 +119,7 @@ public class Carta {
         int ans = Math.abs(height2 - height1);
         return ans;
     }
-    
+    */
 
     /**
     * estbetween Mixed heuristic (shortest distance in the 3D space)
@@ -152,7 +127,6 @@ public class Carta {
     * @param co1 coords1
     * @param c2 coords2
      
-
     public int estbetween(Coords co1,Coords co2){
         int height1 = tm.getTmap()[co1.getx()][co2.gety()];
         int height2 = tm.getTmap()[co2.getx()][co2.gety()];
@@ -163,32 +137,12 @@ public class Carta {
         int ans = (int)(Math.sqrt((double)(diff2D + heightDiff^2)));
         return ans;
     }
-    */
 
     /**
-    * estbetween Mixed heuristic (Manhattan + height difference)
+    * estbetween Mixed heuristic (Euclidean + height difference)
     * returns est cost between 2 coordinates
     * @param co1 coords1
     * @param c2 coords2
-    
-
-    public int estbetween(Coords co1,Coords co2){
-        int height1 = tm.getTmap()[co1.getx()][co2.gety()];
-        int height2 = tm.getTmap()[co2.getx()][co2.gety()];
-        int heightDiff = Math.abs(height2 - height1);
-        int diffX = Math.abs(co1.getx() - co2.getx());
-        int diffY = Math.abs(co1.gety() - co2.gety());
-        int ans = diffX + diffY + heightDiff;
-        return ans;
-    }
-    */
-
-    /**
-    * estbetween Mixed heuristic (Manhattan + height difference)
-    * returns est cost between 2 coordinates
-    * @param co1 coords1
-    * @param c2 coords2
-    */ 
 
     public int estbetween(Coords co1,Coords co2){
         int height1 = tm.getTmap()[co1.getx()][co2.gety()];
@@ -200,17 +154,30 @@ public class Carta {
         int ans = diff2D + heightDiff;
         return ans;
     }
-    
-    
+    */
 
+    /**
+    * estbetween Mixed heuristic (Manhattan + height difference)
+    * returns est cost between 2 coordinates
+    * @param co1 coords1
+    * @param c2 coords2
+    */
+
+    public int estbetween(Coords co1,Coords co2){
+        int height1 = tm.getTmap()[co1.getx()][co2.gety()];
+        int height2 = tm.getTmap()[co2.getx()][co2.gety()];
+        int heightDiff = Math.abs(height2 - height1);
+        int diffX = Math.abs(co1.getx() - co2.getx());
+        int diffY = Math.abs(co1.gety() - co2.gety());
+        int ans = diffX + diffY + heightDiff;
+        return ans;
+    }
+    
     public void mapFromFile(String filename) {
         tm = new TerrainMap(filename);
-        // System.out.println(tm.getTmap()[7][2]);
         for (int i = 0; i < tm.getDepth(); i++) {
             for (int j = 0; j < tm.getWidth(); j++) {
-                // System.out.println(i < tm.getDepth());
                 Coords co1 = new Coords(j, i);
-                // System.out.println(i + ", " + j + ", " +tm.getDepth() + ", " +tm.getWidth() );
                 int h1 = tm.getTmap()[i][j];
                 if ((i+1) < tm.getDepth()){
                     
@@ -238,10 +205,8 @@ public class Carta {
                 }         
             }
         }
-    //System.out.println(links.size());
     findCoordinates();
     }
-
 
     private void findCoordinates(){
         coordinates = new HashSet();
@@ -249,5 +214,4 @@ public class Carta {
             coordinates.add(l.getCoords1());
         }
     }
-
 }

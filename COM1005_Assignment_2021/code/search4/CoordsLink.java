@@ -1,5 +1,5 @@
 /**
- * Coords.java
+ * CoordsLink.java
  *
  * Rebanth Kanner 2021 version
  * 
@@ -14,6 +14,14 @@ public class CoordsLink {
     private int height2;
     private int cost;
 
+    /*
+    * Constructor 
+    * @param coords1 co1
+    * @param coords2 co2
+    * @param height1 h1
+    * @param height2 h2
+    */
+
     public CoordsLink(Coords co1, Coords co2, int h1, int h2){
         coords1 = co1;
         coords2 = co2;
@@ -26,6 +34,8 @@ public class CoordsLink {
             cost = 1;
         }
     }
+
+    //accessors
 
     public Coords getCoords1() {
         return coords1;
